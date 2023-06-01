@@ -1,63 +1,86 @@
-// get Elements By The ID : 
-
+// get Elements By The ID :
 const valider = document.getElementById( 'valider' );
 const cne = document.getElementById( 'cne' );
 const nom = document.getElementById( 'nom' );
 const email = document.getElementById( 'email' );
 const date = document.getElementById( 'date' );
 
-// start form Validation : 
-const Valider = () => {
-    let star = document.getElementById( 'star' );
-    return star.style.color = 'red';
+// start form Validation :
+const GetRed = () => {
+    let star = document.querySelectorAll( '.star' );
+    star.forEach( element => {
+        element.classList.add( 'invalid-star' );
+    } );
+};
+const RemoveRed = () => {
+    let star = document.querySelectorAll( '.star' );
+    star.forEach( element => {
+        element.classList.remove( 'invalid-star' );
+    } );
 }
-
 
 const ValidForm = () => {
     if ( cne.value === '' ) {
-        Valider();
-        alert( 'cne must fiel out' );
+        GetRed();
+        return false;
     } else if ( !ValidCne( cne.value ) ) {
-        alert( 'cne not valid' );
+        GetRed();
+        alert( 'Invalid CNE' );
+    } else {
+        RemoveRed();
+
     }
     if ( nom.value === '' ) {
-        Valider();
-        alert( 'nom must fiel out' );
-    } else if ( !Validnom( nom.value ) ) {
-        alert( 'nom not Valid' );
+        GetRed();
+        return false;
+    } else if ( !ValidNom( nom.value ) ) {
+        alert( 'Invalid Nom' );
+    } else {
+        RemoveRed();
+
     }
     if ( email.value === '' ) {
-        alert( 'email is empty' );
-    } else if ( !Validemail( email.value ) ) {
-        alert( 'email not valid' );
+        GetRed();
+        return false;
+    } else if ( !ValidEmail( email.value ) ) {
+        alert( 'Invalid Email' );
+    } else {
+        RemoveRed();
+
     }
     if ( date.value === '' ) {
-        alert( 'date not set' );
-    } else if ( !Validedate( date.value ) ) {
-        alert( 'date not valid' );
-    }
-}
+        GetRed();
+        return false;
+    } else if ( !ValidDate( date.value ) ) {
+        alert( 'Invalid Date' );
+    } else {
+        RemoveRed();
 
+    }
+};
 
 valider.addEventListener( 'click', ( e ) => {
     e.preventDefault();
     ValidForm();
-} )
+} );
 
 const ValidCne = ( cne ) => {
-    let cneGerex = /[0-9]{14}/;
-    let cneText = cne;
-    return cneGerex.test( cneText );
-}
+    let cneRegex = /[0-9]{14}$/;
+    return cneRegex.test( cne );
+};
 
-const Validnom = ( nom ) => {
-    let nomRegex = /^[A-Z]{1}[a-z]{2,}/;
-    let nomText = nom;
-    return nomRegex.test( nomText );
-}
+const ValidNom = ( nom ) => {
+    let nomRegex = /^[A-Z][a-z]{2,}$/;
+    return nomRegex.test( nom );
+};
 
-const Validemail = ( email ) => {
-    let emailRegex = /\/w+@\/w+\.[a-z]{,3}/ ;
-    let emailText = email;
-    return emailRegex.test(emailText);
-}
+const ValidEmail = ( email ) => {
+    let emailRegex = /^\w+@\w+\.[a-z]{2,3}$/;
+    return emailRegex.test( email );
+};
+
+const ValidDate = ( date ) => {
+    // Assuming the date format is dd/mm/yyyy
+    let dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    return dateRegex.test( date );
+};
