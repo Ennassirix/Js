@@ -15,13 +15,13 @@ const Valider = () => {
 
 const ValidForm = () => {
     if ( cne.value === '' ) {
-        // Valider();
+        Valider();
         alert( 'cne must fiel out' );
     } else if ( !ValidCne( cne.value ) ) {
         alert( 'cne not valid' );
     }
     if ( nom.value === '' ) {
-        // Valider();
+        Valider();
         alert( 'nom must fiel out' );
     } else if ( !Validnom( nom.value ) ) {
         alert( 'nom not Valid' );
